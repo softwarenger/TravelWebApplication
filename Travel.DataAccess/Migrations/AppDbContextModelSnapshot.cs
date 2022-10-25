@@ -476,6 +476,38 @@ namespace Travel.DataAccess.Migrations
                     b.ToTable("NewsLetters");
                 });
 
+            modelBuilder.Entity("Travel.Entity.Concrete.Reservation", b =>
+                {
+                    b.Property<int>("ReservationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Destination")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PersonCount")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ReservationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ReservationId");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Reservations");
+                });
+
             modelBuilder.Entity("Travel.Entity.Concrete.SubAbout", b =>
                 {
                     b.Property<int>("SubAboutId")
@@ -578,6 +610,22 @@ namespace Travel.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Destination");
+                });
+
+            modelBuilder.Entity("Travel.Entity.Concrete.Reservation", b =>
+                {
+                    b.HasOne("Travel.Entity.Concrete.AppUser", "AppUser")
+                        .WithMany("Reservations")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("Travel.Entity.Concrete.AppUser", b =>
+                {
+                    b.Navigation("Reservations");
                 });
 
             modelBuilder.Entity("Travel.Entity.Concrete.Destination", b =>

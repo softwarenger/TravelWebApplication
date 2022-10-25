@@ -5,6 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\UserImages\**" />
+    <Content Remove="wwwroot\UserImages\**" />
+    <EmbeddedResource Remove="wwwroot\UserImages\**" />
+    <None Remove="wwwroot\UserImages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\userımages\UserImagescfb8daf9-c2af-4a1f-abd3-a1c6a242d287.jpg" />
+    <Content Include="wwwroot\userımages\UserImagesd735b692-af28-457c-a2af-67f506d78d6d.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.17" />
@@ -27,7 +39,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Member\Data\" />
-    <Folder Include="wwwroot\UserImages\" />
   </ItemGroup>
 
 </Project>

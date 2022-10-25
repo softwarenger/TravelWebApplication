@@ -45,7 +45,7 @@ namespace TravelProject.MVC.Areas.Member.Controllers
                 var resource = Directory.GetCurrentDirectory();
                 var extension = Path.GetExtension(userEditViewModel.Image.FileName);
                 var imageName = Guid.NewGuid() + extension;
-                var saveLacoation = resource + "/wwwroot/UserImages" + imageName;
+                var saveLacoation = resource + "/wwwroot/userımages/" + imageName;
                 var stream = new FileStream(saveLacoation, FileMode.Create);
                 await userEditViewModel.Image.CopyToAsync(stream);
                 user.ImageUrl = imageName;
