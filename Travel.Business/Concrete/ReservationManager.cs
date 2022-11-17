@@ -18,6 +18,11 @@ namespace Travel.Business.Concrete
             _reservationDal = reservationDal;
         }
 
+        public List<Reservation> GetListApprovalReservation(int id)
+        {
+           return _reservationDal.GetListByFilter(x => x.AppUserId == id);
+        }
+
         public void TAdd(Reservation TEntity)
         {
             _reservationDal.Add(TEntity);

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,13 @@ namespace TravelProject.MVC.Areas.Member.Controllers
     {
         private readonly IDestinationService _destinationService;
         private readonly IReservationService _reservationService;
+        private readonly UserManager<AppUser> _userManager;
 
-        public ReservationController(IDestinationService destinationService, IReservationService reservationService)
+        public ReservationController(IDestinationService destinationService, IReservationService reservationService, UserManager<AppUser> userManager)
         {
             _destinationService = destinationService;
             _reservationService = reservationService;
+            _userManager = userManager;
         }
 
         public IActionResult MyActiveReservation()
@@ -29,6 +32,14 @@ namespace TravelProject.MVC.Areas.Member.Controllers
         public IActionResult MyOldReservation()
         {
             return View();
+        }
+
+        public async Task<IActionResult> MyApprovalReservation()
+        {
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            var valuesList= _reservationService.GetListApprovalReservation(values.Id);
+
+            return View(valuesList);
         }
 
 
@@ -48,6 +59,7 @@ namespace TravelProject.MVC.Areas.Member.Controllers
         public IActionResult NewReservation(Reservation reservation)
         {
             reservation.AppUserId = 1;
+            reservation.Status = "Onay Bekliyor";
             _reservationService.TAdd(reservation);
             return RedirectToAction("MyActiveReservation");
         }

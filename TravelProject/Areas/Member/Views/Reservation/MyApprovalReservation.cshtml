@@ -1,0 +1,29 @@
+﻿@using Travel.Entity.Concrete
+@model List<Reservation>
+@{
+    ViewData["Title"] = "MyCofirmReservation";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<h4>Onay Bekleyen Rezervasyonlar</h4>
+
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Lokasyon</th>
+        <th>Kişi sayısı</th>
+        <th>Rezervasyon tarihi</th>
+        <th>Durum</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ReservationId</td>
+            <td>@item.Destination</td>
+            <td>@item.PersonCount</td>
+            <td>@item.ReservationDate</td>
+            <td>@item.Status</td>
+        </tr>
+    }
+</table>
+
